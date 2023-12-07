@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use App\Models\User;
+
 
 class BookController extends Controller
 {
@@ -61,17 +61,20 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request)
     {
-        dd($request);
+
+        // dd($user->reviews());
         $validated = $request->validate([
             'title' => 'required|min:3|max:255|',
             'author' => 'required|min:3|max:255|regex:/^[a-zA-Z\s]+$/',
         ]);
 
+        /** @var User $user */
+        $user = auth()->user();
         $user->books()->create($validated);
 
-        return to_route('books.index')->with('success', 'Book added successfully.');
+        return redirect()->route('books.index')->with('success', 'Book added successfully.');
     }
 
     /**

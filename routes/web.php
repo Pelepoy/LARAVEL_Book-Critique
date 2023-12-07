@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ReviewController;
 
 /*
@@ -18,8 +20,13 @@ use App\Http\Controllers\ReviewController;
 Route::redirect('/', '/books', 301);
 
 Route::resource('books', BookController::class)
-  ->only(['index', 'show']);
+  ->only(['index', 'show', 'create', 'store']);
 
 Route::resource('books.reviews', ReviewController::class)
   ->scoped(['review' => 'book'])
   ->only(['create', 'store']);
+
+Route::get('register', [UserController::class, 'register'])->name('register.form');
+Route::post('register', [UserController::class, 'store'])->name('register.store');
+Route::get('login', [UserController::class, 'login'])->name('login');
+Route::post('login', [UserController::class, 'authenticate'])->name('login.authenticate');

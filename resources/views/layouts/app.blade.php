@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Reviews</title>
+    @vite('resources/css/app.css')
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
     <style type="text/tailwindcss">
     .btn {

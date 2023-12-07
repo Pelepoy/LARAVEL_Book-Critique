@@ -6,6 +6,9 @@
         <input type="text" name="title" placeholder="Search title" value="{{ request('title') }}" class="input h-10" />
         <input type="hidden" name="filter" value="{{ request('filter') }}">
         <button type="submit" class="btn h-10">Search</button>
+        @auth
+            <a href="{{ route('books.create')}}" class="btn h-10">Add</a>
+        @endauth
         <a href="{{ route('books.index') }}" class="btn h-10"> Reset </a>
     </form>
     <div class="filter-container mb-4 flex">
@@ -32,7 +35,8 @@
                     <div class="flex flex-wrap items-center justify-between">
                         <div class="w-full flex-grow sm:w-auto">
                             <a href="{{ route('books.show', $book) }}" class="book-title">{{ $book->title }}</a>
-                            <span class="book-author">by {{ $book->author }}</span>
+                            {{-- !TODO: Add author name --}}
+                            <span class="book-author">by {{ $book->author_id->name }}</span>
                         </div>
                         <div>
                             <div class="book-rating">

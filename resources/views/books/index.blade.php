@@ -36,7 +36,7 @@
                         <div class="w-full flex-grow sm:w-auto">
                             <a href="{{ route('books.show', $book) }}" class="book-title">{{ $book->title }}</a>
                             {{-- !TODO: Add author name --}}
-                            <span class="book-author">by {{ $book->author_id->name }}</span>
+                            <span class="book-author">by {{ $book->author }}</span>
                         </div>
                         <div>
                             <div class="book-rating">

@@ -104,7 +104,20 @@ class Book extends Model
 
     protected static function booted()
     {
-        static::updated(fn (Book $book) => cache()->forget('book:' . $book->id));
-        static::deleted(fn (Book $book) => cache()->forget('book:' . $book->id));
+        // static::updated(fn (Book $book) => cache()->forget('book:' . $book->id));
+        // static::deleted(fn (Book $book) => cache()->forget('book:' . $book->id));
+        // static::created(fn (Book $book) => cache()->forget('book:' . $book->author));
+
+        $clearCache = function () {
+            cache()->forget('books:popular_last_month:');
+            cache()->forget('books:popular_last_6months:');
+            cache()->forget('books:highest_rated_last_month:');
+            cache()->forget('books:highest_rated_last_6months:');
+            cache()->forget('books::');
+        };
+
+        static::updated($clearCache);
+        static::deleted($clearCache);
+        static::created($clearCache);
     }
 }

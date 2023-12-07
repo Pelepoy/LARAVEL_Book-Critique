@@ -11,6 +11,8 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'author', 'user_id'];
+
     public function reviews()
     {
         return $this->hasMany(Review::class);
@@ -20,6 +22,7 @@ class Book extends Model
     {
         return $this->belongsTo(User::class);
     }
+
 
     public function scopeTitle(Builder $query, string $title): Builder
     {

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class BookFactory extends Factory
         return [
             'title'       =>   fake()->sentence(3),
             'author'      =>   fake()->name,
+            'user_id'     =>   fn () => User::factory()->create()->id,
             'created_at'  =>   fake()->dateTimeBetween('-3 years'),
             'updated_at'  =>   function (array $attributes) {
                 return fake()->dateTimeBetween($attributes['created_at']);

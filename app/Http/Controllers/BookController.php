@@ -109,17 +109,30 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $title = 'Edit book | Book Critique';
+        return view('books.edit', [
+            'book' => $book,
+            'title' => $title
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|min:3|max:255|',
+            'author' => 'required|min:3|max:255|regex:/^[a-zA-Z\s]+$/',
+        ]);
+
+        $book = Book::findOrFail($id);
+        $book->update($validated);
+
+        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
     }
 
     /**

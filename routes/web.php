@@ -19,8 +19,7 @@ use App\Http\Controllers\ReviewController;
 
 Route::redirect('/', '/books', 301);
 
-Route::resource('books', BookController::class)
-  ->only(['index', 'show', 'create', 'store']);
+Route::resource('books', BookController::class);
 
 Route::resource('books.reviews', ReviewController::class)
   ->scoped(['review' => 'book'])

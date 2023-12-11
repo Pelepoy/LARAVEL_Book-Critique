@@ -9,6 +9,7 @@ use App\Models\User;
 
 class BookController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -63,10 +64,8 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-
-        // dd($user->reviews());
         $validated = $request->validate([
-            'title' => 'required|min:3|max:255|',
+            'title'  => 'required|min:3|max:255|',
             'author' => 'required|min:3|max:255|regex:/^[a-zA-Z\s]+$/',
         ]);
 
@@ -114,7 +113,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $title = 'Edit book | Book Critique';
         return view('books.edit', [
-            'book' => $book,
+            'book'  => $book,
             'title' => $title
         ]);
     }
@@ -125,7 +124,7 @@ class BookController extends Controller
     public function update(Request $request, int $id)
     {
         $validated = $request->validate([
-            'title' => 'required|min:3|max:255|',
+            'title'  => 'required|min:3|max:255|',
             'author' => 'required|min:3|max:255|regex:/^[a-zA-Z\s]+$/',
         ]);
 
@@ -138,8 +137,11 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
     }
 }

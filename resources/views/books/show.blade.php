@@ -25,8 +25,11 @@
         @auth
             @if ($book->user_id === auth()->user()->id)
                 <a href="{{ route('books.edit', $book)}}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded h-10">Edit Book</a>
-                <a href="{{ route('books.create')}}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded h-10">Delete Book</a>
-                <!-- Add delete functionality here -->
+                <form action="{{ route('books.destroy', $book)}}" method="POST" class="inline-block">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded h-10">Delete Book</button>
+                </form>
             @else
                 <a href="{{ route('books.reviews.create', $book) }}" class="reset-link">Add a review</a>
             @endif

@@ -9,11 +9,17 @@ class Review extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['review', 'rating'];
+    protected $fillable = ['review', 'rating', 'user_id', 'visitor_ip'];
 
     public function book()
     {
         return $this->belongsTo(Book::class);
+    }
+
+    public function author()
+    {
+
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     protected static function booted()

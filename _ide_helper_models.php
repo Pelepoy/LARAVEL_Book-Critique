@@ -53,6 +53,7 @@ namespace App\Models{
  * @property int $id
  * @property int $book_id
  * @property int|null $user_id
+ * @property string|null $visitor_ip
  * @property string $review
  * @property int $rating
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -70,6 +71,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereReview($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Review whereVisitorIp($value)
  */
 	class Review extends \Eloquent {}
 }

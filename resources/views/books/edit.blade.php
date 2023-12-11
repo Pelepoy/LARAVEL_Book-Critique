@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center items-center h-screen bg-gray-100 pb-40">
         <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
-            <form action="{{ route ('books.update', $book)}}" method="POST" class="space-y-4" onclick="return confirm('Are you sure you want to update this book?')";>
+            <form action="{{ route ('books.update', $book)}}" method="POST" class="space-y-4" onsubmit="return confirm('Are you sure you want to update this book?')";>
                 @csrf
                 @method('PUT')
                 <div class="mb-4">

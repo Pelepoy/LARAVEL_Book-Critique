@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -44,8 +44,16 @@ class RouteServiceProvider extends ServiceProvider
         //     return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         // });
 
-        RateLimiter::for('reviews', function (Request $request) {
+        // RateLimiter::for('reviews', function (Request $request) {
+        //     return Limit::perHour(10)->by($request->user()?->id ?: $request->ip());
+        // });
+
+        RateLimiter::for('non_auth_reviews', function (Request $request) {
             return Limit::perHour(3)->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('auth_reviews', function (Request $request) {
+            return Limit::perHour(5)->by(auth()->check() ? auth()->id() : null);
         });
     }
 }

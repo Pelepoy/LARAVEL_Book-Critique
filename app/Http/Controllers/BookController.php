@@ -20,8 +20,7 @@ class BookController extends Controller
 
         $books = Book::when(
             $title,
-            fn ($query, $title) =>
-            $query->title($title)
+            fn ($query, $title) => $query->title($title)
         );
         $books = match ($filter) {
             'popular_last_month'         =>    $books->popularLastMonth(),

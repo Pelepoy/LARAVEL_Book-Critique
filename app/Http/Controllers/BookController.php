@@ -20,7 +20,8 @@ class BookController extends Controller
 
         $books = Book::when(
             $title,
-            fn ($query, $title) => $query->title($title)
+            fn ($query, $title) =>
+            $query->title($title)
         );
         $books = match ($filter) {
             'popular_last_month'         =>    $books->popularLastMonth(),
@@ -30,15 +31,13 @@ class BookController extends Controller
             default                      =>    $books->latest()->withAvgRating()->withReviewsCount(),
         };
         // $books = $books->get();
-
         $cacheKey = 'books:' . $filter . ':' . $title;
-        $books =
-            cache()->remember(
-                $cacheKey,
-                3600,
-                fn () =>
-                $books->get()
-            );
+        $books = cache()->remember(
+            $cacheKey,
+            3600,
+            fn () =>
+            $books->get()
+        );
 
         return view('books.index', [
             'books' => $books,
